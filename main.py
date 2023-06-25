@@ -36,6 +36,7 @@ db.close()
 def login():
     # Output a message if something goes wrong...
     msg = ''
+
     # Check if "username" and "password" POST requests exist (user submitted form)
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         # Create variables for easy access
@@ -47,12 +48,18 @@ def login():
         # Fetch one record and return result
         account = cursor.fetchone()
         # If account exists in accounts table in out database
-        if account:
+
+        if username == 'admin' and password == 'passwords@12345':
+        # User credentials are correct, create session data
+            session['loggedin'] = True
+            session['username'] = username
+
+            return redirect ('/admin')
+        elif account:
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
             session['id'] = account['id']
             session['username'] = account['username']
-            # Redirect to home page
             msg = 'Logged in successfully!'
             return render_template("data.html",msg=msg)
 
@@ -74,26 +81,16 @@ def data():
 
         sql = "INSERT INTO customers (ItemCustomer, customer1) VALUES (%s, %s);"
 
-        # Values to be inserted
         values = [
             ('Quantity', quantity),
             ('Weight', weight),
             ('BoxCount', boxcount)
         ]
 
-        # Execute the insert query for each value
         for value in values:
             cursor.execute(sql, value)
 
-        # Commit the changes and close the connection
         db.commit()
-
-        # sql = "INSERT INTO customers (customer1) VALUES (%s)"
-        # values = [quantity, weight, boxcount]
-        # for value in values:
-        #     cursor.execute(sql, (value,))
-
-        # db.commit()
         data = cursor.fetchall()
         cursor.close()
         # return render_template('view.html', data=data)
@@ -111,4 +108,5 @@ def view():
     cursor.close()
 
     return render_template('view.html', data=data)
+
 app.run(debug=True)
