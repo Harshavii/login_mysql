@@ -14,20 +14,12 @@ INSERT INTO `user` (`id`, `username`, `password`) VALUES (3, 'customer2', 'passw
 
 select * from user; 
 
-CREATE TABLE IF NOT EXISTS `customer` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `customers` (
   	`ItemCustomer` varchar(255) NOT NULL,    
   	`Customer1` varchar(255) NOT NULL,
-  	`Customer2` varchar(255) NOT NULL,
-  	`Total` varchar(255) NOT NULL,    
-    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO customer (ItemCustomer)
-VALUES ('Quantity'), ('Weight'), ('BoxCount');
 select * from customer;
-ALTER TABLE customer
-DROP COLUMN id;
 
 
 
