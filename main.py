@@ -12,16 +12,16 @@ my_sql = MySQL(app)
 app.secret_key = 'secretkey'
 
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'escape04'
-app.config['MYSQL_DB'] = 'data_base'
+app.config['MYSQL_USER'] = USER              # user
+app.config['MYSQL_PASSWORD'] = PASSWORD      #server password
+app.config['MYSQL_DB'] = DATABASE_NAME       # database name
 
 
 db= mysql.connector.connect(
     host='localhost',
-    user='root',
-    password='escape04',
-    database='data_base'
+    user=USER,
+    password=PASSWORD,
+    database=DATABASE_NAME
 )
 
 if db.is_connected():
